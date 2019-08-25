@@ -1,2 +1,2 @@
 # learn_python
-learn_mysel
+learn_myself
