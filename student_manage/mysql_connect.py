@@ -32,39 +32,40 @@ class Mysql(object):
 
     def fetch_all_data(self):
         sql = "select * from manager"
-        self.exec_comand(sql)
+        return self.exec_comand(sql)
 
     def fetch_one_data(self, name):
         sql = "select * from manager where name=\"{}\"".format(name)
-        self.exec_comand(sql)
+        return self.exec_comand(sql)
 
-    def insert_date_to_sql(self, data):
+    def insert_date_to_sql(self, one_data):
         # INSERT INTO `manager`(`name`, `sex`, `math`, `english`, `culture`) VALUES('杨硕', '男', '150', '150', '150')
-        for one_data in data:
-            print(one_data, len(one_data))
-            if len(one_data) == 5:
-                sql = '''{}values("{}","{}","{}","{}","{}")'''.format(INSERT_TABLE, one_data[0], one_data[1],
-                                                                      one_data[2], one_data[3], one_data[4])
-                print(sql)
-            elif len(one_data) == 6:
-                sql = '''{}values("{}","{}","{}","{}","{}","{}")'''.format(INSERT_ALL_TABLE, one_data[0], one_data[1],
-                                                                           one_data[2], one_data[3], one_data[4],
-                                                                           one_data[5])
-                print(sql)
-            else:
-                print("数据格式错误")
-                break
-            self.exec_comand(sql)
+        print(one_data, len(one_data))
+        if len(one_data) == 5:
+            sql = '''{}values("{}","{}","{}","{}","{}")'''.format(INSERT_TABLE, one_data[0], one_data[1],
+                                                                  one_data[2], one_data[3], one_data[4])
+            print(sql)
+        elif len(one_data) == 6:
+            sql = '''{}values("{}","{}","{}","{}","{}","{}")'''.format(INSERT_ALL_TABLE, one_data[0], one_data[1],
+                                                                       one_data[2], one_data[3], one_data[4],
+                                                                       one_data[5])
+            print(sql)
+        else:
+            print("数据格式错误")
+            return
+        return self.exec_comand(sql)
 
     def del_date(self, name):
         sql = "delete from manager where name=\"{}\"".format(name)
         print(sql)
         self.exec_comand(sql)
 
-    def update_to_mysql(self, filed, update_field, id, name):
+    def update_to_mysql(self, name, filed, update_field, id="name"):
         sql = '''update manager set {}="{}" where {}="{}" '''.format(filed, update_field, id, name)
-        self.exec_comand(sql)
+        return self.exec_comand(sql)
 
+
+'''
 
 s = Mysql()
 s.fetch_all_data()
@@ -74,3 +75,4 @@ s.insert_date_to_sql(data)
 s.del_date("二狗")
 s.update_to_mysql("number", "4", "name", "小子")
 s.close_sql()
+'''
